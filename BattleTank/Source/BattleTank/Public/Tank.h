@@ -18,7 +18,8 @@ public:
 	void AimAt(FVector HitLocation);
 
 	UFUNCTION(BlueprintCallable)
-	void SetBarrelReference(UStaticMeshComponent* BarrelToSet);
+	void SetBarrelReference(UTankBarrel* BarrelToSet);
+
 
 protected:
 	class UTankAimingComponent* TankAimingComponent = nullptr;
