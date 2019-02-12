@@ -2,7 +2,8 @@
 
 #include "TankAIController.h"
 #include "Tank.h"
-#include "GameFramework/Actor.h"
+#include "Engine/World.h"
+#include "GameFramework/PlayerController.h"
 
 void ATankAIController::BeginPlay()
 {
@@ -13,7 +14,7 @@ void ATankAIController::BeginPlay()
 		UE_LOG(LogTemp, Warning, TEXT("AIController can't find player tank"));
 	}
 	else {
-		UE_LOG(LogTemp, Warning, TEXT("AIController found player: %s"), *PlayerTank->GetName());
+		UE_LOG(LogTemp, Warning, TEXT("AIController (Tank: %s) found player: %s"), *GetControlledTank()->GetName(), *PlayerTank->GetName());
 	}
 
 	//UE_LOG(LogTemp, Warning, TEXT("PlayerController BeginPLay"));

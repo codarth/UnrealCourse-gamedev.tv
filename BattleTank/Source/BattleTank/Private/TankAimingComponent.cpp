@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TankAimingComponent.h"
-#include "GameFramework/Actor.h"
+//#include "GameFramework/Actor.h"
 #include "Components/StaticMeshComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "TankBarrel.h"
@@ -23,7 +23,10 @@ void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet)
 
 void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 {
-	if (!Barrel) return;
+
+	if (!Barrel) { return; }
+	UE_LOG(LogTemp, Warning, TEXT("UTankAimingComponent::AimAt"));
+
 
 	FVector OUTLauchVelocity;
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
@@ -34,16 +37,25 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 		OUTLauchVelocity,
 		StartLocation,
 		HitLocation,
-		LaunchSpeed
+		LaunchSpeed,
+		false, 0, 0
+		, ESuggestProjVelocityTraceOption::DoNotTrace //Epic Bug: this needs to be here as DoNotTrace
 		);
 		
 	if (bHaveAimSolution) 
 	{
 		auto AimDirection = OUTLauchVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimDirection);
-		//UE_LOG(LogTemp, Warning, TEXT("Aiming at %s"), *AimDirection.ToString());
-	}
+		auto Time = GetWorld()->GetTimeSeconds();
+		UE_LOG(LogTemp, Warning, TEXT("%f: %s Aim sovle found"), Time, *GetOwner()->GetName());
 
+	}
+	else
+	{
+		auto Time = GetWorld()->GetTimeSeconds();
+		UE_LOG(LogTemp, Warning, TEXT("%f: %s No aim sovle found"), Time, *GetOwner()->GetName());
+
+	}
 
 }
 
