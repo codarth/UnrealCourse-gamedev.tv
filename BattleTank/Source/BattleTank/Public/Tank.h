@@ -18,11 +18,13 @@ public:
 	void AimAt(FVector HitLocation);
 
 	UFUNCTION(BlueprintCallable)
-	void SetBarrelReference(UTankBarrel* BarrelToSet);
+	void SetBarrelReference(class UTankBarrel* BarrelToSet);
 
 	UFUNCTION(BlueprintCallable)
-	void SetTurretReference(UTankTurret* TurretToSet);
+	void SetTurretReference(class UTankTurret* TurretToSet);
 
+	UFUNCTION(BlueprintCallable)
+	void Fire();
 
 protected:
 	class UTankAimingComponent* TankAimingComponent = nullptr;
@@ -36,4 +38,9 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = Firing)
 	float LaunchSpeed = 4000; 
+
+	UPROPERTY(EditAnywhere, Category = Setup)
+	TSubclassOf<class AProjectile> Projectile;
+
+	class UTankBarrel* Barrel = nullptr;
 };
