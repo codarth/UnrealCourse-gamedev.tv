@@ -40,7 +40,7 @@ public:
 	float LaunchSpeed = 4000; 
 
 	UPROPERTY(EditAnywhere, Category = Setup)
-	TSubclassOf<class AProjectile> Projectile;
+	TSubclassOf<class AProjectile> Projectile_BP;
 
 	class UTankBarrel* Barrel = nullptr;
 };
