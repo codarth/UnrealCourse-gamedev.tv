@@ -23,4 +23,5 @@ private:
 
 	//class ATank* GetPlayerTank() const;
 
+	float AcceptanceRadius = 3000.f;
 };
