@@ -25,11 +25,10 @@ protected:
 	UPROPERTY(BlueprintReadOnly)
 	class UTankAimingComponent* TankAimingComponent = nullptr;
 
-	UPROPERTY(BlueprintReadOnly)
-	class UTankMovementComponent* TankMovementComponent = nullptr;
+private:	
 
-public:	
-	
+	virtual void BeginPlay() override;
+
 	UPROPERTY(EditDefaultsOnly, Category = Setup)
 	TSubclassOf<class AProjectile> Projectile_BP;
 

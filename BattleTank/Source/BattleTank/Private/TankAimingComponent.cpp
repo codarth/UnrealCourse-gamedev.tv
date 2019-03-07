@@ -1,7 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TankAimingComponent.h"
-//#include "GameFramework/Actor.h"
 #include "Components/StaticMeshComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "TankBarrel.h"
@@ -26,7 +25,7 @@ void UTankAimingComponent::Initialize(UTankBarrel * BarrelToSet, UTankTurret * T
 void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 {
 
-	if (!Barrel) { return; }
+	if (!ensure(Barrel)) { return; }
 	//UE_LOG(LogTemp, Warning, TEXT("UTankAimingComponent::AimAt"));
 
 
@@ -54,7 +53,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 {
-	if (!Barrel || !Turret) { return; }
+	if (!ensure (Barrel || Turret)) { return; }
 
 	// Work-out difference between current rotation and AimDirection
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
