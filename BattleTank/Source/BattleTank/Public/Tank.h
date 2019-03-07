@@ -27,6 +27,7 @@ public:
 	void Fire();
 
 protected:
+	UPROPERTY(BlueprintReadOnly)
 	class UTankAimingComponent* TankAimingComponent = nullptr;
 
 	UPROPERTY(BlueprintReadOnly)
