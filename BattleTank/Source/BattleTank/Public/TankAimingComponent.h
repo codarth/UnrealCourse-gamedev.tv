@@ -49,13 +49,13 @@ private:
 	class UTankBarrel* Barrel = nullptr;
 	class UTankTurret* Turret = nullptr;
 
-	UPROPERTY(EditDefaultsOnly, Category = Setup)
-	TSubclassOf<class AProjectile> Projectile_BP;
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	TSubclassOf<class AProjectile> Projectile_BP = nullptr;
 
-	UPROPERTY(EditDefaultsOnly, Category = Firing)
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float LaunchSpeed = 4000;
 
-	UPROPERTY(EditDefaultsOnly, Category = Firing)
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float ReloadTimeInSeconds = 1.5f;
 
 	double LastFireTime = 0;
