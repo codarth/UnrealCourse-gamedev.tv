@@ -29,6 +29,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Firing")
 	void Fire();
 
+	UPROPERTY(BlueprintReadWrite, Category = "Setup")
+	TSubclassOf<class AProjectile> Projectile_BP = nullptr;
 
 protected:
 
@@ -48,9 +50,6 @@ private:
 
 	class UTankBarrel* Barrel = nullptr;
 	class UTankTurret* Turret = nullptr;
-
-	UPROPERTY(EditDefaultsOnly, Category = "Setup")
-	TSubclassOf<class AProjectile> Projectile_BP = nullptr;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float LaunchSpeed = 4000;
