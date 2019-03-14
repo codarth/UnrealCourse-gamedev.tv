@@ -32,6 +32,8 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = "Setup")
 	TSubclassOf<class AProjectile> Projectile_BP = nullptr;
 
+	EFiringState GetFiringState() const;
+
 protected:
 
 	UPROPERTY(BlueprintReadOnly, Category = "State")
