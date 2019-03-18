@@ -12,7 +12,8 @@ enum class EFiringState : uint8
 {
 	Reloading,
 	Aiming,
-	Locked
+	Locked,
+	OutOfAmmo
 };
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -33,6 +34,10 @@ public:
 	TSubclassOf<class AProjectile> Projectile_BP = nullptr;
 
 	EFiringState GetFiringState() const;
+
+	UFUNCTION(BlueprintCallable, Category = "Firing")
+	int GetAmmoCount() const;
+
 
 protected:
 
@@ -61,4 +66,6 @@ private:
 
 	double LastFireTime = 0;
 	FVector AimDirection;
+
+	int AmmoCount = 3;
 };
