@@ -59,13 +59,13 @@ private:
 	class UTankTurret* Turret = nullptr;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
-	float LaunchSpeed = 4000;
+	float LaunchSpeed = 8000;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
-	float ReloadTimeInSeconds = 0.1f;
+	float ReloadTimeInSeconds = 2.f;
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
-	uint32 AmmoCount = 999;
+	uint32 AmmoCount = 20;
 
 	double LastFireTime = 0;
 	FVector AimDirection;
