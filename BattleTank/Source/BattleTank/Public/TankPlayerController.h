@@ -36,6 +36,11 @@ private:
 
 	bool GetLookVectorHitLocation(FVector lookDirection, FVector& HitLocation) const;
 
+	virtual void SetPawn(APawn* InPawn) override;
+
+	UFUNCTION()
+	void OnPossedTankDeath();
+
 	UPROPERTY(EditDefaultsOnly)
 	float CrosshairXLocation = 0.5f;
 
