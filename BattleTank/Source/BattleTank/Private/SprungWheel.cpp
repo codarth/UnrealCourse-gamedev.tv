@@ -9,6 +9,7 @@ ASprungWheel::ASprungWheel()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.TickGroup = TG_PostPhysics;
 
 	MassWheelConstraint = CreateDefaultSubobject<UPhysicsConstraintComponent>(FName("MassWheelConstraint"));
 	SetRootComponent(MassWheelConstraint);
@@ -16,11 +17,11 @@ ASprungWheel::ASprungWheel()
 	Axle = CreateDefaultSubobject<USphereComponent>(FName("Axle"));
 	Axle->SetupAttachment(MassWheelConstraint);
 
-	AxleWheelConstraint = CreateDefaultSubobject<UPhysicsConstraintComponent>(FName("AxelWheelContraint"));
-	AxleWheelConstraint->SetupAttachment(Axle);
-
 	Wheel = CreateDefaultSubobject<USphereComponent>(FName("Wheel"));
 	Wheel->SetupAttachment(Axle);
+
+	AxleWheelConstraint = CreateDefaultSubobject<UPhysicsConstraintComponent>(FName("AxelWheelContraint"));
+	AxleWheelConstraint->SetupAttachment(Axle);
 
 }
 
@@ -28,6 +29,9 @@ ASprungWheel::ASprungWheel()
 void ASprungWheel::BeginPlay()
 {
 	Super::BeginPlay();
+
+	Wheel->SetNotifyRigidBodyCollision(true);
+	Wheel->OnComponentHit.AddDynamic(this, &ASprungWheel::OnHit);
 	
 	SetupConstraints();
 }
@@ -37,11 +41,16 @@ void ASprungWheel::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	if (GetWorld()->TickGroup == TG_PostPhysics)
+	{
+		TotalForceMagnitudeThisFrame = 0;
+	}
+
 }
 
 void ASprungWheel::AddDrivingForce(float ForceMagnitude)
 {
-	Wheel->AddForce(Axle->GetForwardVector() * ForceMagnitude);
+	TotalForceMagnitudeThisFrame += ForceMagnitude;
 }
 
 void ASprungWheel::SetupConstraints()
@@ -52,5 +61,16 @@ void ASprungWheel::SetupConstraints()
 	if (!BodyRoot) return;
 	MassWheelConstraint->SetConstrainedComponents(BodyRoot, NAME_None, Axle, NAME_None);
 	AxleWheelConstraint->SetConstrainedComponents(Axle, NAME_None, Wheel, NAME_None);
+}
+
+void ASprungWheel::OnHit(UPrimitiveComponent * HitComponent, AActor * OtherActor, UPrimitiveComponent * OtherComp, FVector NormalImpulse, const FHitResult & Hit)
+{
+	ApplyForce();
+}
+
+void ASprungWheel::ApplyForce()
+{
+	Wheel->AddForce(Axle->GetForwardVector() * TotalForceMagnitudeThisFrame);
+
 }
 
