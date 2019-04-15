@@ -51,6 +51,7 @@ public:
 
 //protected:
 	/** Fires a projectile. */
+	UFUNCTION(BlueprintCallable, Category = Input)
 	void OnFire();
 
 };
