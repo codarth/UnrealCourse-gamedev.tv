@@ -21,6 +21,7 @@ Section_02/BullCowGame/Debug/
 
 # Visual Studio 2015 user specific files
 .vs/
+.vscode
 
 # Visual Studio 2015 database file
 *.VC.db
